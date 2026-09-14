@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-14T14:27:05.317Z" agent="RikkeiTool" version="24.0.0">
+  <diagram id="Page-1" name="Sơ đồ Sequence Diagram Luồng Phát Đơn Hỏa Tốc - Rikkei Logistics Express">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sender" value="Người gửi (Sender)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="305" y="50" width="50" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="app" value="Mobile App / Web Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="305" y="140" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="order_svc" value="Order Service (Quản lý đơn hàng)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="305" y="230" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="dispatch_svc" value="Dispatch Service (Hệ thống điều phối)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="305" y="320" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="notif_svc" value="Notification Service (Thông báo)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=11;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="305" y="410" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="driver" value="Tài xế (Driver App)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="305" y="500" width="50" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_0" value="1. Đặt đơn &amp; Xác nhận thanh toán" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="sender" target="app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_1" value="2. CreateOrder(orderDetails) [Sync]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="app" target="order_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_2" value="3. OrderConfirmedResponse [Reply]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="order_svc" target="app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3" value="4. Hiển thị &apos;Đang tìm tài xế&apos; [Reply]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="app" target="sender">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_4" value="5. OrderCreatedEvent [Async]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="order_svc" target="dispatch_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_5" value="6. SendOrderOffer(driverId) [Async]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="dispatch_svc" target="notif_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_6" value="7. Push Notification đơn mới [Async]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="notif_svc" target="driver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_7" value="Nhánh alt 1: Chấp nhận đơn [Sync]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="driver" target="dispatch_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_8" value="Nhánh alt 2: Từ chối đơn [Sync]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="driver" target="dispatch_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_9" value="Nhánh alt 3: Timeout 30 giây không phản hồi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1.5;strokeColor=#333333;endArrow=block;endFill=1;fontSize=10;fontColor=#e74c3c;fontStyle=1;" edge="1" parent="1" source="dispatch_svc" target="dispatch_svc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
